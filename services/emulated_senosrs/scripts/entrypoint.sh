@@ -2,6 +2,18 @@
 
 GIB_IN_BYTES="1073741824"
 
+# check if the emulated-entrypoint.sh file exists
+if [ ! -e emulated-entrypoint.sh ]; then
+  echo "No emulated-entrypoint.sh detected!"
+  exit 1
+fi
+chmod +x emulated-entrypoint.sh
+
+# ask the user for the target ip address
+echo "Enter the IP address of the MQTT broker: "
+read IP
+
+# check if the filesystem image exists
 target="${1:-pi1}"
 image_path="/sdcard/filesystem.img"
 zip_path="/filesystem.zip"
@@ -83,7 +95,7 @@ fi
 
 echo "testing where qemu is"
 echo "Booting QEMU machine \"${machine}\" with kernel=${kernel} dtb=${dtb}"
-exec ${emulator} \
+${emulator} \
   --machine "${machine}" \
   --cpu arm1176 \
   --m "${memory}" \
@@ -94,4 +106,10 @@ exec ${emulator} \
   --append "rw earlyprintk loglevel=8 console=ttyAMA0,115200 dwc_otg.lpm_enable=0 root=${root} rootwait panic=1 ${append}" \
   --no-reboot \
   --display none \
-  --serial mon:stdio
+  --serial mon:stdio 
+
+#install sshpass
+sudo apt-get install -y sshpass
+
+# run the emulated-entrypoint.sh file inside the qemu machine
+sshpass -p "raspberry" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 5022 pi@localhost "bash -s" < emulated-entrypoint.sh $IP

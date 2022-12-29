@@ -1,5 +1,10 @@
 #!/bin/bash
+# enable bash's debug mode
+set -x
 
+# take the IP address of the MQTT broker as an argument
+IP=$1
+echo "The IP address of the MQTT broker is: ${SERVER_IP}"
 # Install dependencies
 apt-get update
 apt-get install -y python3-pip 
@@ -15,4 +20,8 @@ apt-get install -y telegraf
 systemctl start telegraf
 
 # Download and install the emulated sensors
-git clone https://github.com/mohamed9974/ai4iot/
+wget https://github.com/mohamed9974/ai4iot/blob/main/services/emulated_senosrs/scripts/simulate.py
+
+chmod +x simulate.py
+# Start the emulated sensors
+echo ${IP}

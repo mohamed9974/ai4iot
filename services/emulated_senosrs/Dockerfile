@@ -14,7 +14,7 @@ LABEL org.opencontainers.image.source="https://github.com/carlosperate/docker-qe
 
 # Select the GitHub tag from the release that hosts the OS files
 # https://github.com/carlosperate/rpi-os-custom-image/releases/
-ARG GH_TAG="buster-legacy-2022-04-07"
+ARG GH_TAG="buster-legacy-2022-01-28"
 
 # To build a different image type from the release the FILE_SUFFIX variable
 # can be overwritten with the `docker build --build-arg` flag
@@ -24,11 +24,11 @@ ARG FILE_SUFFIX="autologin-ssh-expanded"
 ARG FILE_PREXIF="raspberry-pi-os-lite-"${GH_TAG}"-"
 
 ARG FILESYSTEM_IMAGE_URL="https://github.com/carlosperate/rpi-os-custom-image/releases/download/"${GH_TAG}"/"${FILE_PREXIF}${FILE_SUFFIX}".zip"
-ADD $FILESYSTEM_IMAGE_URL /filesystem.zip
+# ADD $FILESYSTEM_IMAGE_URL /filesystem.zip
+ADD raspberry-pi-os-lite-buster-legacy-2022-01-28-autologin-ssh-expanded.zip /filesystem.zip
 
 COPY ./scripts/entrypoint.sh /entrypoint.sh
 COPY ./scripts/emulated-entrypoint.sh /emulated-entrypoint.sh
-COPY ./scripts/emulated-sensors.sh /emulated-sensors.sh
 
 # entrypoint.sh has been added in the parent lukechilds/dockerpi:vm
 ENTRYPOINT ["/entrypoint.sh"]
