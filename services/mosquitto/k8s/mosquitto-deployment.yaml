@@ -1,29 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.27.0 (HEAD)
   creationTimestamp: "2021-09-02T14:00:00Z"
   labels:
-    io.kompose.service: mosquitto
+    app: mosquitto
   name: mosquitto
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: mosquitto
+      app: mosquitto
   strategy:
     type: Recreate
   template:
     metadata:
-      annotations:
-        kompose.cmd: kompose convert
-        kompose.version: 1.27.0 (HEAD)
       creationTimestamp: "2021-09-02T14:00:00Z"
       labels:
         io.kompose.network/: "true"
-        io.kompose.service: mosquitto
+        app: mosquitto
     spec:
       containers:
         - env:
@@ -33,16 +27,11 @@ spec:
           name: mosquitto
           ports:
             - containerPort: 1883
-          resources: { 
-            limits: {
-              cpu: 100m,
-              memory: 100Mi
-            },
-            requests: {
-              cpu: 100m,
-              memory: 100Mi
+          resources:
+            {
+              limits: { cpu: 100m, memory: 128Mi },
+              requests: { cpu: 100m, memory: 128Mi },
             }
-          }
           volumeMounts:
             - mountPath: /mosquitto/config
               name: mosquitto-claim0

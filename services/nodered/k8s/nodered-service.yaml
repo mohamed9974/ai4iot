@@ -1,12 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.27.0 (HEAD)
   creationTimestamp: "2021-09-02T14:00:00Z"
   labels:
-    io.kompose.service: nodered
+    app: nodered
   name: nodered
 spec:
   ports:
@@ -14,7 +11,6 @@ spec:
       port: 1880
       targetPort: 1880
   selector:
-    io.kompose.service: nodered
+    app: nodered
 status:
-#TODO: Add support for LoadBalancer
   loadBalancer: {}

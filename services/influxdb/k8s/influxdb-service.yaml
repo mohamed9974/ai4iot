@@ -1,20 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.27.0 (HEAD)
   creationTimestamp: "2021-09-02T14:00:00Z"
   labels:
-    io.kompose.service: influxdb
+    app: influxdb
   name: influxdb
 spec:
   ports:
     - name: "8086"
-      port: 8086
+      port: 8087
       targetPort: 8086
   selector:
-    io.kompose.service: influxdb
-status:
-#TODO: Add support for LoadBalancer
-  loadBalancer: {}
+    app: influxdb
+  type: LoadBalancer
