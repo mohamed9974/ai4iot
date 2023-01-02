@@ -7,3 +7,6 @@
 [submodule "src/node-red-docker"]
 	path = src/node-red-docker
 	url = https://github.com/node-red/node-red-docker.git
+[submodule "src/mosquitto"]
+	path = src/mosquitto
+	url = https://github.com/eclipse/mosquitto.git
