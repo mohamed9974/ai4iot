@@ -1,0 +1,9 @@
+[submodule "src/grafana"]
+	path = src/grafana
+	url = https://github.com/grafana/grafana.git
+[submodule "src/influxdata-docker"]
+	path = src/influxdata-docker
+	url = https://github.com/influxdata/influxdata-docker.git
+[submodule "src/node-red-docker"]
+	path = src/node-red-docker
+	url = https://github.com/node-red/node-red-docker.git
