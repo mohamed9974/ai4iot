@@ -1,0 +1,16 @@
+apiVersion: skaffold/v2beta13
+kind: Config
+build:
+  artifacts:
+    - image: grafana-service
+      context : ./src/grafana
+    - image: influxdb-service
+      context : ./src/influxdb
+    - image: node-red-service
+      context : ./src/node-red
+    - image: mqtt-service
+      context : ./src/mosquitto
+deploy:
+  kubectl:
+    manifests:
+      - ./kubernetes/*/*
